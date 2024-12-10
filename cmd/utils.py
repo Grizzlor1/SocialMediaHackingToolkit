@@ -410,12 +410,17 @@ def twitter_bruteforce(username, wordlist, vpn):
 
 def gmail_bruteforce(username, wordlist, vpn):
   try:
+    if '../' in wordlist or '..\\' in wordlist:
+      raise Exception('Invalid file path')
     wl_file = open("wordlist/"+wordlist, 'r')
     wl_lines = wl_file.readlines()
     count = 0
   except FileNotFoundError:
     print("\n\nEERROR 1x01:"+color.RED+" wordlist not found, please insert your wordlist in 'wordlist' folder.\n\n"+color.END)
     exit() 
+ except Exception as e:
+   print("\n\nEERROR: "+color.RED+str(e)+color.END)
+   exit()
   for password in wl_lines:
       try:
           session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
