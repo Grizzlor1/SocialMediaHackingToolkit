@@ -410,6 +410,8 @@ def twitter_bruteforce(username, wordlist, vpn):
 
 def gmail_bruteforce(username, wordlist, vpn):
   try:
+    if '../' in wordlist or '..\\' in wordlist:
+      raise Exception('Invalid file path')
     wl_file = open("wordlist/"+wordlist, 'r')
     wl_lines = wl_file.readlines()
     count = 0
